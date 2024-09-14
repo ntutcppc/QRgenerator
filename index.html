@@ -44,12 +44,27 @@
     button:hover {
       background-color: #218838;
     }
+    #downloadBtn {
+      display: none;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    #downloadBtn:hover {
+      background-color: #0056b3;
+    }
     canvas {
       width: 500px;
       max-width: 90%;
       height: auto;
       border: 1px solid #ccc;
       border-radius: 8px;
+      margin-bottom: 20px;
     }
     .container {
       max-width: 100%;
@@ -69,12 +84,13 @@
 </head>
 <body>
 
-  <h1>QR Code 生成工具</h1>
+  <h1>集美 IG 貼文條碼產生器!</h1>
   <div class="container">
     <input type="text" id="urlInput" placeholder="輸入網址" />
-    <button onclick="generateQRCode()">🪄</button>
-    <div class="instructions">輸入網址後，按下按鈕並長按或右鍵圖片下載。</div>
+    <button onclick="generateQRCode()">🪄 生成 QR Code</button>
+    <div class="instructions">輸入網址後，按下按鈕生成並長按或右鍵下載圖片。</div>
     <canvas id="canvas" width="1440" height="1440"></canvas>
+    <button id="downloadBtn" onclick="downloadImage()">📥 下載圖片</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
@@ -108,19 +124,20 @@
         qrImage.onload = function() {
           ctx.drawImage(qrImage, 608, 125, 655, 655);
 
-          // 4. 更新畫布以供下載
-          canvas.toDataURL('image/png');
+          // 4. 顯示下載按鈕
+          document.getElementById('downloadBtn').style.display = 'block';
         };
       };
     }
 
-    // 允許使用者右鍵下載圖片
-    document.getElementById('canvas').addEventListener('contextmenu', function(e) {
+    // 下載圖片的功能
+    function downloadImage() {
+      const canvas = document.getElementById('canvas');
       const link = document.createElement('a');
       link.download = 'qrcode-template.png';
-      link.href = this.toDataURL('image/png');
+      link.href = canvas.toDataURL('image/png');
       link.click();
-    });
+    }
   </script>
 
 </body>
