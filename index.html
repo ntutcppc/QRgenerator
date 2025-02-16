@@ -84,12 +84,12 @@
 </head>
 <body>
 
-  <h1>集美 IG 貼文條碼產生器!</h1>
+  <h1>QR Code 生成工具</h1>
   <div class="container">
     <input type="text" id="urlInput" placeholder="輸入網址" />
     <button onclick="generateQRCode()">🪄 生成 QR Code</button>
-    <div class="instructions">輸入網址後，按下按鈕生成並長按或右鍵下載圖片。</div>
-    <canvas id="canvas" width="1440" height="1440"></canvas>
+    <div class="instructions">輸入網址後，按下按鈕生成並下載圖片。</div>
+    <canvas id="canvas" width="1080" height="1350"></canvas>
     <button id="downloadBtn" onclick="downloadImage()">📥 下載圖片</button>
   </div>
 
@@ -107,22 +107,22 @@
 
       // 1. 載入模板圖片
       const templateImage = new Image();
-      templateImage.src = 'template.png'; // 這裡是模板圖片的路徑
+      templateImage.src = 'Ntemplate.png'; // 這裡是模板圖片的路徑
       templateImage.onload = function() {
         // 繪製模板圖片
-        ctx.drawImage(templateImage, 0, 0, 1440, 1440);
+        ctx.drawImage(templateImage, 0, 0, 1080, 1350);
 
         // 2. 生成 QR Code
         const qr = new QRious({
           value: url,
-          size: 655, // QR Code 的大小
+          size: 425, // QR Code 的大小
         });
 
         // 3. 將 QR Code 繪製到模板的指定區域
         const qrImage = new Image();
         qrImage.src = qr.toDataURL();
         qrImage.onload = function() {
-          ctx.drawImage(qrImage, 608, 125, 655, 655);
+          ctx.drawImage(qrImage, 489, 229, 425, 425);
 
           // 4. 顯示下載按鈕
           document.getElementById('downloadBtn').style.display = 'block';
